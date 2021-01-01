@@ -1,11 +1,10 @@
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import Header from "../components/Header";
 import TransactionList from "../components/TransactionList";
-import { baseUrl, options } from "../utils/API";
+import { API, baseUrl, options } from "../utils/API";
 
 function Transactionpage() {
   const {
@@ -16,11 +15,7 @@ function Transactionpage() {
     refetch,
     isFetching,
   } = useQuery("transactions", () =>
-    Axios.get(
-      `${baseUrl}api/v1/transactions`,
-      { params: { status: status } },
-      options
-    )
+    API.get(`/transactions`, { params: { status: status } }, options)
   );
 
   const [status, setStatus] = useState("my-offer");

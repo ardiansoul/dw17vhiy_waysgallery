@@ -1,21 +1,20 @@
-import Axios from "axios";
 import React from "react";
 import { useMutation } from "react-query";
-import { baseUrl, options } from "../utils/API";
+import { API, options } from "../utils/API";
 import { priceFormatter } from "../utils/priceFormatter";
 
 function TransactionModal({ detail, handleModal, refetch, status }) {
   const [mutate] = useMutation(
     () =>
-      Axios.patch(
-        `${baseUrl}api/v1/transaction/${detail.id}`,
+      API.patch(
+        `/transaction/${detail.id}`,
         {
           data: { status: "Success" },
         },
         options
       ),
     {
-      onSuccess: (data) => {
+      onSuccess: () => {
         refetch();
         handleModal();
       },

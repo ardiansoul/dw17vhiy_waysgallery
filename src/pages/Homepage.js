@@ -3,14 +3,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Header from "../components/Header";
 import StackGrid from "react-stack-grid";
 import { useQuery } from "react-query";
-import Axios from "axios";
-import { baseUrl, options } from "../utils/API";
+
+import { API, options } from "../utils/API";
 import { useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 function Homepage() {
   const { data, error, isError, isLoading, refetch } = useQuery("posts", () =>
-    Axios.get(`${baseUrl}api/v1/posts`, { params: { query: query } }, options)
+    API.get(`/posts`, { params: { query: query } }, options)
   );
 
   const [query, setQuery] = useState("");

@@ -1,20 +1,20 @@
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Axios from "axios";
+
 import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useMutation } from "react-query";
 import { useHistory } from "react-router-dom";
 import Header from "../components/Header";
-import { baseUrl, options } from "../utils/API";
+import { API, options } from "../utils/API";
 
 function EditProfilepage() {
   const [mutate] = useMutation((form) => {
-    return Axios.patch(`${baseUrl}api/v1/user`, { data: form }, options);
+    return API.patch(`/user`, { data: form }, options);
   });
 
   const [artMutate] = useMutation((data) => {
-    return Axios.post(`${baseUrl}api/v1/upload-arts`, data, options);
+    return API.post(`/upload-arts`, data, options);
   });
 
   const [form, setForm] = useState({

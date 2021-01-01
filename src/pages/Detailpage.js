@@ -1,51 +1,24 @@
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import { useHistory, useParams } from "react-router-dom";
 import Header from "../components/Header";
-import { baseUrl } from "../utils/API";
+import { API, options } from "../utils/API";
 import avatar from "../assets/image/userIcon.png";
 import parse from "html-react-parser";
 
 function Detailpage() {
   const { id } = useParams();
   const { data, error, isError, isLoading, refetch } = useQuery("post", () =>
-    Axios({
-      method: "get",
-      url: `${baseUrl}api/v1/post/${id}`,
-      headers: {
-        Authorization: localStorage.token,
-        withCredentials: true,
-        "Access-Control-Allow-Origin": "*",
-      },
-    })
+    API.get(`/post/${id}`, options)
   );
 
   const [followed] = useMutation((data) =>
-    Axios({
-      method: "post",
-      url: `${baseUrl}api/v1/followed`,
-      data: data,
-      headers: {
-        Authorization: localStorage.token,
-        withCredentials: true,
-        "Access-Control-Allow-Origin": "*",
-      },
-    })
+    API.post(`/followed`, { data: data }, options)
   );
   const [unfollowed] = useMutation((data) =>
-    Axios({
-      method: "delete",
-      url: `${baseUrl}api/v1/unfollowed`,
-      data: data,
-      headers: {
-        Authorization: localStorage.token,
-        withCredentials: true,
-        "Access-Control-Allow-Origin": "*",
-      },
-    })
+    API.delete(`/unfollowed`, { data: data }, options)
   );
 
   const handleFollow = async () => {

@@ -1,12 +1,11 @@
-import Axios from "axios";
 import React, { useContext, useState } from "react";
 import { useMutation } from "react-query";
 import { AppContext } from "../context/AppContext";
-import { baseUrl } from "../utils/API";
+import { API, setAuthToken } from "../utils/API";
 
 function Register({ showModalLogin, showModalRegister }) {
   const [mutate, { isError, error }] = useMutation((form) =>
-    Axios.post(`${baseUrl}api/v1/register`, form)
+    API.post(`/register`, form)
   );
 
   const [form, setForm] = useState({
@@ -29,6 +28,7 @@ function Register({ showModalLogin, showModalRegister }) {
             type: "LOGIN",
             payload: data.data.data,
           });
+          setAuthToken(data.data.data.token);
           showModalRegister();
         },
         onError: (error) => {

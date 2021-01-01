@@ -1,10 +1,8 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Axios from "axios";
 import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { useHistory } from "react-router-dom";
 import logo from "../assets/image/logo.png";
-import { baseUrl, options } from "../utils/API";
+import { API, options } from "../utils/API";
 import Dropdown from "./Dropdown";
 import avatar from "../assets/image/userIcon.png";
 
@@ -12,7 +10,7 @@ function Header() {
   const history = useHistory();
 
   const { data, isLoading } = useQuery("profile", () => {
-    return Axios.get(`${baseUrl}api/v1/user`, options);
+    return API.get(`/user`, options);
   });
 
   const [showDropdown, setShowDropdown] = useState(false);

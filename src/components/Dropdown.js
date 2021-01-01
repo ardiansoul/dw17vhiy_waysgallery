@@ -24,7 +24,6 @@ function Dropdown({ handleDropdown }) {
     dispatch({
       type: "LOGOUT",
     });
-    localStorage.clear();
     handleDropdown();
   };
 

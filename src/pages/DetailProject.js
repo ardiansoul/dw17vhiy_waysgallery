@@ -1,16 +1,15 @@
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Axios from "axios";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import Header from "../components/Header";
-import { baseUrl, options } from "../utils/API";
+import { API, options } from "../utils/API";
 
 function DetailProject() {
   const { id } = useParams();
   const { data, isLoading, isError, error } = useQuery("project", () =>
-    Axios.get(`${baseUrl}api/v1/project/${id}`, options)
+    API.get(`/project/${id}`, options)
   );
 
   const [image, setImage] = useState(data?.data.data.project.photos);

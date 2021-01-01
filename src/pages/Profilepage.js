@@ -2,8 +2,7 @@ import Header from "../components/Header";
 import profile from "../assets/image/profile.png";
 import { useHistory } from "react-router-dom";
 import { useMutation, useQuery } from "react-query";
-import Axios from "axios";
-import { baseUrl, options } from "../utils/API";
+import { API, options } from "../utils/API";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import StackGrid from "react-stack-grid";
@@ -11,14 +10,14 @@ import StackGrid from "react-stack-grid";
 function Profilepage({ location }) {
   const { data, isError, error, isLoading } = useQuery(
     `${location.pathname === "/profile" ? "profile" : "user"}`,
-    () => Axios.get(`${baseUrl}api/v1/user/${location.state.id}`, options)
+    () => API.get(`/user/${location.state.id}`, options)
   );
 
   const [followed] = useMutation((data) =>
-    Axios.post(`${baseUrl}api/v1/followed`, data, options)
+    API.post(`/followed`, data, options)
   );
   const [unfollowed] = useMutation((data) =>
-    Axios.delete(`${baseUrl}api/v1/unfollowed`, data, options)
+    API.delete(`/unfollowed`, data, options)
   );
 
   const handleFollow = async () => {

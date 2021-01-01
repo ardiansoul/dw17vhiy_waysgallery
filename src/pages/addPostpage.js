@@ -1,9 +1,8 @@
-import Axios from "axios";
 import { useCallback, useState } from "react";
 import { useMutation } from "react-query";
 import { useHistory } from "react-router-dom";
 import Header from "../components/Header";
-import { baseUrl } from "../utils/API";
+import { API, options } from "../utils/API";
 import { useDropzone } from "react-dropzone";
 import cloud from "../assets/image/cloud.png";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
@@ -39,16 +38,13 @@ function AddPostpage() {
   const history = useHistory();
 
   const [mutate] = useMutation((form) => {
-    return Axios({
-      method: "post",
-      url: `${baseUrl}api/v1/post`,
-      data: form,
-      headers: {
-        Authorization: localStorage.token,
-        withCredentials: true,
-        "Access-Control-Allow-Origin": "*",
+    return API.post(
+      "/post",
+      {
+        data: form,
       },
-    });
+      options
+    );
   });
 
   const handleChange = (e) => {

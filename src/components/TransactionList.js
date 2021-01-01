@@ -1,22 +1,16 @@
-import Axios from "axios";
 import { useState } from "react";
 import { useMutation } from "react-query";
-import { baseUrl } from "../utils/API";
+import { API, options } from "../utils/API";
 import TransactionItem from "./TransactionItem";
 import TransactionModal from "./TransactionModal";
 
 function TransactionList({ transactions, status, refetch }) {
   const [mutate] = useMutation((form) =>
-    Axios({
-      method: "PATCH",
-      url: `${baseUrl}api/v1/transaction/${form.id}`,
-      data: { status: form.status },
-      headers: {
-        Authorization: localStorage.token,
-        withCredentials: true,
-        "Access-Control-Allow-Origin": "*",
-      },
-    })
+    API.patch(
+      `/transaction/${form.id}`,
+      { data: { status: form.status } },
+      options
+    )
   );
 
   const handleUpdate = async (status, id) => {

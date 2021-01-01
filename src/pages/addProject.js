@@ -3,35 +3,29 @@ import { useDropzone } from "react-dropzone";
 import Header from "../components/Header";
 import cloud from "../assets/image/cloud.png";
 import { useMutation } from "react-query";
-import Axios from "axios";
-import { baseUrl } from "../utils/API";
+
+import { API, options } from "../utils/API";
 import { useHistory } from "react-router-dom";
 
 function AddProject({ location }) {
   const [transactionMutate] = useMutation(() => {
-    return Axios({
-      method: "patch",
-      url: `${baseUrl}api/v1/transaction/${location.state.id}`,
-      data: { status: "Waiting Approve Project" },
-      headers: {
-        Authorization: localStorage.token,
-        withCredentials: true,
-        "Access-Control-Allow-Origin": "*",
+    return API.patch(
+      `/transaction/${location.state.id}`,
+      {
+        data: { status: "Waiting Approve Project" },
       },
-    });
+      options
+    );
   });
 
   const [mutate] = useMutation((data) => {
-    return Axios({
-      method: "post",
-      url: `${baseUrl}api/v1/project`,
-      data: data,
-      headers: {
-        Authorization: localStorage.token,
-        withCredentials: true,
-        "Access-Control-Allow-Origin": "*",
+    return API.post(
+      `/project`,
+      {
+        data: data,
       },
-    });
+      options
+    );
   });
 
   const [localState, setLocalState] = useState({

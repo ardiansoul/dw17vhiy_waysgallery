@@ -1,11 +1,9 @@
-import Axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { QueryCache, ReactQueryCacheProvider } from "react-query";
-
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import { AppContext, AppContextProvider } from "./context/AppContext";
+import { AppContext } from "./context/AppContext";
 import AddPostpage from "./pages/addPostpage";
 import addProject from "./pages/addProject";
 import Detailpage from "./pages/Detailpage";
@@ -16,7 +14,7 @@ import Homepage from "./pages/Homepage";
 import Landingpage from "./pages/Landingpage";
 import Profilepage from "./pages/Profilepage";
 import Transactionpage from "./pages/Transactionpage";
-import { options } from "./utils/API";
+import { API, options, setAuthToken } from "./utils/API";
 import PrivateRoute from "./utils/PrivateRoute";
 
 const queryCache = new QueryCache();
@@ -27,9 +25,13 @@ function App() {
 
   const [state, dispatch] = useContext(AppContext);
 
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  }
+
   const loadUser = async () => {
     try {
-      const response = await Axios.get("check-auth", options);
+      const response = await API.get("check-auth", options);
 
       if (response.status === 401) {
         return dispatch({

@@ -1,14 +1,11 @@
-import Axios from "axios";
 import React, { useState } from "react";
 import { useMutation } from "react-query";
 import { useHistory } from "react-router-dom";
 import Header from "../components/Header";
-import { baseUrl, options } from "../utils/API";
+import { API, options } from "../utils/API";
 
 function Hirepage({ location }) {
-  const [mutate] = useMutation((form) =>
-    Axios.post(`${baseUrl}api/v1/hired`, form, options)
-  );
+  const [mutate] = useMutation((form) => API.post(`/hired`, form, options));
 
   const [form, setForm] = useState({
     title: "",

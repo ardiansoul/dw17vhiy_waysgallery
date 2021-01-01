@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 
 function Homepage() {
   const { data, error, isError, isLoading, refetch } = useQuery("posts", () =>
-    Axios.get(`${baseUrl}api/v1/posts`, options)
+    Axios.get(`${baseUrl}api/v1/posts`, { params: { query: query } }, options)
   );
 
   const [query, setQuery] = useState("");

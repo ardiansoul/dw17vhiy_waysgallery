@@ -2,6 +2,7 @@ import Axios from "axios";
 import React from "react";
 import { useMutation } from "react-query";
 import { baseUrl, options } from "../utils/API";
+import { priceFormatter } from "../utils/priceFormatter";
 
 function TransactionModal({ detail, handleModal, refetch, status }) {
   const [mutate] = useMutation(
@@ -48,7 +49,7 @@ function TransactionModal({ detail, handleModal, refetch, status }) {
           Description: {detail?.description}
         </h1>
         <h1 className="text-lg font-bold text-green-400 mt-8">
-          Price: {detail?.price}
+          Price: {priceFormatter(detail?.price)}
         </h1>
       </div>
       <div className="w-full h-16 flex justify-end items-center">

@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: "Open Sans";
+    font-weight: 400;
+    src: url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+  }
+  button:focus {
+    outline: none;
+  }
+  input[type="text"]:focus,
+  textarea:focus {
+    outline: none;
+  }
+  .nonNormalize h1 {
+    font-size: 2.2em;
+  }
+
+  .nonNormalize h2 {
+    font-size: 2em;
+  }
+
+  .nonNormalize h3 {
+    font-size: 1.8em;
+  }
+
+  .nonNormalize h4 {
+    font-size: 1.6em;
+  }
+
+  .nonNormalize h5 {
+    font-size: 1.4em;
+  }
+
+  .nonNormalize p {
+    font-size: 1.2em;
+  }
+}

@@ -37,14 +37,8 @@ function AddPostpage() {
 
   const history = useHistory();
 
-  const [mutate] = useMutation((form) => {
-    return API.post(
-      "/post",
-      {
-        data: form,
-      },
-      options
-    );
+  const [mutate] = useMutation((data) => {
+    return API.post("/post", { data: data }, options);
   });
 
   const handleChange = (e) => {

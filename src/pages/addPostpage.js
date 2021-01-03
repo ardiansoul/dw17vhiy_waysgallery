@@ -37,8 +37,8 @@ function AddPostpage() {
 
   const history = useHistory();
 
-  const [mutate] = useMutation((data) => {
-    return API.post("/post", { data: data }, options);
+  const [mutate] = useMutation((form) => {
+    return API.post("/post", form, options);
   });
 
   const handleChange = (e) => {
@@ -61,13 +61,18 @@ function AddPostpage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const data = new FormData();
-      data.append("title", localState.form.title);
-      data.append("description", localState.form.description);
+      const form = new FormData();
+      form.append("title", localState.form.title);
+      form.append("description", localState.form.description);
       for (let i = 0; i < photo.length; i++) {
-        data.append(`photos`, photo[i]);
+        form.append(`photos`, photo[i]);
       }
-      await mutate(data, {
+
+      for (const item of form) {
+        console.log(`${item[0]} || ${item[1]}`);
+      }
+
+      await mutate(form, {
         onSuccess: (data) => {
           history.push("/");
         },

@@ -13,8 +13,8 @@ function EditProfilepage() {
     return API.patch(`/user`, { data: form }, options);
   });
 
-  const [artMutate] = useMutation((data) => {
-    return API.post(`/upload-arts`, data, options);
+  const [artMutate] = useMutation((form) => {
+    return API.post(`/upload-arts`, { data: form }, options);
   });
 
   const [form, setForm] = useState({

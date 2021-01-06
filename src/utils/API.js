@@ -15,6 +15,6 @@ export const setAuthToken = (token) => {
 };
 
 export const API = Axios.create({
-  // baseURL: "https://dw17vhiy-waysgallery-api.herokuapp.com/api/v1",
-  baseURL: "http://localhost:5000/api/v1",
+  baseURL: "https://dw17vhiy-waysgallery-api.herokuapp.com/api/v1",
+  // baseURL: "http://localhost:5000/api/v1",
 });

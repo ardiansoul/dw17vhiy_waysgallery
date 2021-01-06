@@ -9,8 +9,8 @@ import Header from "../components/Header";
 import { API, options } from "../utils/API";
 
 function EditProfilepage() {
-  const [mutate] = useMutation((form) => {
-    return API.patch(`/user`, { data: form }, options);
+  const [mutate] = useMutation((formData) => {
+    return API.patch(`/user`, { data: formData }, options);
   });
 
   const [artMutate] = useMutation((form) => {
@@ -45,13 +45,17 @@ function EditProfilepage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const data = new FormData();
-      data.append("greating", form.greating);
-      data.append("fullName", form.fullName);
-      data.append("avatar", avatar);
+      const formData = new FormData();
+      formData.append("greating", form.greating);
+      formData.append("fullName", form.fullName);
+      formData.append("avatar", avatar);
 
-      await mutate(data, {
-        onSuccess: () => {
+      for (const form of formData) {
+        console.log(`${form[0]} ${form[1]}`);
+      }
+      await mutate(formData, {
+        onSuccess: (data) => {
+          console.log(data);
           history.push("/profile");
         },
       });

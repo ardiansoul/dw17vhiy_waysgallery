@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 
 function Homepage() {
   const { data, error, isError, isLoading, refetch } = useQuery("posts", () =>
-    API.get(`/posts`, { params: { query: query } }, options)
+    API.get(`/posts`, { params: { query: query, type: type } }, options)
   );
 
   const [query, setQuery] = useState("");

@@ -14,16 +14,16 @@ function Detailpage() {
     API.get(`/post/${id}`, options)
   );
 
-  const [followed] = useMutation((data) =>
-    API.post(`/followed`, { data: data }, options)
+  const [followed] = useMutation((form) =>
+    API.post(`/followed`, form, options)
   );
-  const [unfollowed] = useMutation((data) =>
-    API.delete(`/unfollowed`, { data: data }, options)
+  const [unfollowed] = useMutation((form) =>
+    API.delete(`/unfollowed`, form, options)
   );
 
   const handleFollow = async () => {
     try {
-      let form = { followerId: data.data.data.post.createdBy?.id };
+      let form = { followerId: data.data.data.post.createdBy.id };
       if (data.data.data.post.createdBy?.followed.length > 0) {
         await unfollowed(form);
       } else {

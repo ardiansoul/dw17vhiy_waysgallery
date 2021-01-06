@@ -24,6 +24,9 @@ function TransactionItem({
         <td>{transaction.orderBy.fullName}</td>
       )}
       <td
+        style={{
+          cursor: "pointer",
+        }}
         onClick={() => {
           handleModal(transaction);
         }}

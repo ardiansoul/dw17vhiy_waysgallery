@@ -55,6 +55,8 @@ function DetailProject() {
                 }}
               />
               <a
+                target="_blank"
+                rel="noopener noreferrer"
                 href={image[imageId].image}
                 className="w-24 h-8 bg-base rounded-md text-white flex mt-4 justify-center items-center"
               >
@@ -74,7 +76,7 @@ function DetailProject() {
                 <img
                   src={image[imageId].image}
                   alt={data.data.data.project.description}
-                  className="w-full h-full object-cover object-center rounded-md"
+                  className="w-full object-cover object-center rounded-md"
                   onClick={() => {
                     setDetail(true);
                   }}

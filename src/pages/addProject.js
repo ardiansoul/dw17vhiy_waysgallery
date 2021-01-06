@@ -8,24 +8,24 @@ import { API, options } from "../utils/API";
 import { useHistory } from "react-router-dom";
 
 function AddProject({ location }) {
-  const [transactionMutate] = useMutation(() => {
-    return API.patch(
-      `/transaction/${location.state.id}`,
-      {
-        data: { status: "Waiting Approve Project" },
+  console.log(location.state.id);
+  const [transactionMutate] = useMutation(
+    () => {
+      return API.patch(
+        `/transaction/${location.state.id}`,
+        { status: "Waiting Approve Project" },
+        options
+      );
+    },
+    {
+      onSuccess: () => {
+        history.push("/transaction");
       },
-      options
-    );
-  });
+    }
+  );
 
-  const [mutate] = useMutation((data) => {
-    return API.post(
-      `/project`,
-      {
-        data: data,
-      },
-      options
-    );
+  const [mutate] = useMutation((form) => {
+    return API.post(`/project`, form, options);
   });
 
   const [localState, setLocalState] = useState({
@@ -64,16 +64,15 @@ function AddProject({ location }) {
   const history = useHistory();
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(location.state.id);
+    const form = new FormData();
+    form.append("transactionId", location.state.id);
+    form.append("description", localState.form.description);
+    photo.map((photo) => form.append("photos", photo));
 
-    const data = new FormData();
-    data.append("transactionId", location.state.id);
-    data.append("description", localState.form.description);
-    photo.map((photo) => data.append("photos", photo));
-
-    await mutate(data, {
+    await mutate(form, {
       onSuccess: async (data) => {
         await transactionMutate();
-        history.push("/transaction");
       },
     });
   };

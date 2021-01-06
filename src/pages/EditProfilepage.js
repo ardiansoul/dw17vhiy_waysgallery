@@ -9,12 +9,12 @@ import Header from "../components/Header";
 import { API, options } from "../utils/API";
 
 function EditProfilepage() {
-  const [mutate] = useMutation((formData) => {
-    return API.patch(`/user`, { data: formData }, options);
+  const [mutate] = useMutation((form) => {
+    return API.patch(`/user`, form, options);
   });
 
   const [artMutate] = useMutation((form) => {
-    return API.post(`/upload-arts`, { data: form }, options);
+    return API.post(`/upload-arts`, form, options);
   });
 
   const [form, setForm] = useState({
@@ -55,7 +55,6 @@ function EditProfilepage() {
       }
       await mutate(formData, {
         onSuccess: (data) => {
-          console.log(data);
           history.push("/profile");
         },
       });

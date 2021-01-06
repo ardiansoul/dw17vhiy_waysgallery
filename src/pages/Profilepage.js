@@ -8,28 +8,43 @@ import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import StackGrid from "react-stack-grid";
 
 function Profilepage({ location }) {
-  const { data, isError, error, isLoading } = useQuery(
+  const { data, isError, error, isLoading, refetch } = useQuery(
     `${location.pathname === "/profile" ? "profile" : "user"}`,
     () => API.get(`/user/${location.state.id}`, options)
   );
 
-  const [followed] = useMutation((data) =>
-    API.post(`/followed`, data, options)
+  const [followed] = useMutation((form) =>
+    API.post(`/followed`, { data: form }, options)
   );
-  const [unfollowed] = useMutation((data) =>
-    API.delete(`/unfollowed`, data, options)
+  const [unfollowed] = useMutation((form) =>
+    API.delete(`/unfollowed`, { data: form }, options)
   );
 
   const handleFollow = async () => {
     try {
       let form = { followerId: data.data.data.id };
       if (data.data.data.followed.length > 0) {
-        await unfollowed(form);
+        await unfollowed(form, {
+          onSuccess: (data) => {
+            console.log(data);
+          },
+          onError: (error) => {
+            console.log({ error: error });
+          },
+        });
       } else {
-        await followed(form);
+        await followed(form, {
+          onSuccess: (data) => {
+            console.log(data);
+          },
+          onError: (error) => {
+            console.log({ error: error });
+          },
+        });
       }
+      refetch();
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 

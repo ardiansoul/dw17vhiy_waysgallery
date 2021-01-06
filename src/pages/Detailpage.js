@@ -25,9 +25,23 @@ function Detailpage() {
     try {
       let form = { followerId: data.data.data.post.createdBy.id };
       if (data.data.data.post.createdBy?.followed.length > 0) {
-        await unfollowed(form);
+        await unfollowed(form, {
+          onSuccess: (data) => {
+            console.log(data);
+          },
+          onError: (error) => {
+            console.log(error);
+          },
+        });
       } else {
-        await followed(form);
+        await followed(form, {
+          onSuccess: (data) => {
+            console.log(data);
+          },
+          onError: (error) => {
+            console.log(error);
+          },
+        });
       }
       refetch();
     } catch (err) {

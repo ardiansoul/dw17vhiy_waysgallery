@@ -6,13 +6,7 @@ import { priceFormatter } from "../utils/priceFormatter";
 function TransactionModal({ detail, handleModal, refetch, status }) {
   const [mutate] = useMutation(
     () =>
-      API.patch(
-        `/transaction/${detail.id}`,
-        {
-          data: { status: "Success" },
-        },
-        options
-      ),
+      API.patch(`/transaction/${detail.id}`, { status: "Success" }, options),
     {
       onSuccess: () => {
         refetch();
@@ -60,8 +54,7 @@ function TransactionModal({ detail, handleModal, refetch, status }) {
         >
           Cancel
         </button>
-        {status === "my-order" ||
-        detail.status === "Waiting Approve Project" ? (
+        {detail.status === "Waiting Approve Project" ? (
           <button
             className="w-24 h-8 bg-green-600 rounded-md text-white ml-2"
             onClick={() => {

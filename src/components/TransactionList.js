@@ -6,17 +6,14 @@ import TransactionModal from "./TransactionModal";
 
 function TransactionList({ transactions, status, refetch }) {
   const [mutate] = useMutation((form) =>
-    API.patch(
-      `/transaction/${form.id}`,
-      { data: { status: form.status } },
-      options
-    )
+    API.patch(`/transaction/${form.id}`, { status: form.status }, options)
   );
 
   const handleUpdate = async (status, id) => {
     try {
       const data = { status, id };
 
+      console.log(data);
       await mutate(data, {
         onSuccess: () => {},
         onError: (error) => {

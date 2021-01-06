@@ -9,7 +9,14 @@ import { useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 function Homepage() {
-  const { data, error, isError, isLoading, refetch } = useQuery("posts", () =>
+  const {
+    data,
+    error,
+    isError,
+    isLoading,
+    refetch,
+    isFetching,
+  } = useQuery("posts", () =>
     API.get(`/posts`, { params: { query: query, type: type } }, options)
   );
 
@@ -69,28 +76,33 @@ function Homepage() {
           </div>
           <div className="m-auto" style={{ width: "912px" }}>
             <h3 className="text-2xl font-bold my-4 ml-4">today post</h3>
-
-            <StackGrid columnWidth={300}>
-              {data.data.data.posts
-                ? data.data.data.posts.map((post, index) => {
-                    return (
-                      <div
-                        key={index + 1}
-                        className="w-full flex justify-center shadow-2xl"
-                      >
-                        <img
-                          src={post.photos[0]?.image}
-                          alt={post.title}
-                          className="object-cover object-center"
-                          onClick={() => {
-                            history.push(`/detail/${post.id}`);
-                          }}
-                        />
-                      </div>
-                    );
-                  })
-                : ""}
-            </StackGrid>
+            {isFetching ? (
+              <div className="w-full h-screen flex justify-center items-center">
+                <FontAwesomeIcon icon={faSpinner} spin size="6x" />
+              </div>
+            ) : (
+              <StackGrid columnWidth={300}>
+                {data.data.data.posts
+                  ? data.data.data.posts.map((post, index) => {
+                      return (
+                        <div
+                          key={index + 1}
+                          className="w-full flex justify-center shadow-2xl"
+                        >
+                          <img
+                            src={post.photos[0]?.image}
+                            alt={post.title}
+                            className="object-cover object-center"
+                            onClick={() => {
+                              history.push(`/detail/${post.id}`);
+                            }}
+                          />
+                        </div>
+                      );
+                    })
+                  : ""}
+              </StackGrid>
+            )}
           </div>
         </>
       )}

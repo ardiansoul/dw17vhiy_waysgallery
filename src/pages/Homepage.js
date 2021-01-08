@@ -81,18 +81,18 @@ function Homepage() {
                 <FontAwesomeIcon icon={faSpinner} spin size="6x" />
               </div>
             ) : (
-              <StackGrid columnWidth={300}>
+              <StackGrid columnWidth={280} gutterWidth={20} gutterHeight={20}>
                 {data.data.data.posts
                   ? data.data.data.posts.map((post, index) => {
                       return (
                         <div
                           key={index + 1}
-                          className="w-full flex justify-center shadow-2xl"
+                          className="w-full flex justify-center shadow-2xl rounded-md"
                         >
                           <img
                             src={post.photos[0]?.image}
                             alt={post.title}
-                            className="object-cover object-center"
+                            className="object-cover object-center rounded-md"
                             onClick={() => {
                               history.push(`/detail/${post.id}`);
                             }}

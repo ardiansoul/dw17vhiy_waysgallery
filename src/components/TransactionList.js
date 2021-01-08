@@ -13,9 +13,10 @@ function TransactionList({ transactions, status, refetch }) {
     try {
       const data = { status, id };
 
-      console.log(data);
       await mutate(data, {
-        onSuccess: () => {},
+        onSuccess: () => {
+          refetch();
+        },
         onError: (error) => {
           console.error(error);
         },

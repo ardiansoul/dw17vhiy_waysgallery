@@ -9,8 +9,8 @@ function TransactionModal({ detail, handleModal, refetch, status }) {
       API.patch(`/transaction/${detail.id}`, { status: "Success" }, options),
     {
       onSuccess: () => {
-        refetch();
         handleModal();
+        refetch();
       },
       onError: (error) => {
         console.error(error);

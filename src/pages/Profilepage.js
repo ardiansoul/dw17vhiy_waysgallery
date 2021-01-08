@@ -6,6 +6,7 @@ import { API, options } from "../utils/API";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import StackGrid from "react-stack-grid";
+import UserIcon from "../assets/image/userIcon.png";
 
 function Profilepage({ location }) {
   const { data, isError, error, isLoading, refetch } = useQuery(
@@ -84,9 +85,9 @@ function Profilepage({ location }) {
                 />
               ) : (
                 <img
-                  src={profile}
+                  src={UserIcon}
                   alt={data.data.data.fullName}
-                  className="w-32 h-32 rounded-full object-cover object-center"
+                  className="w-32 h-32 rounded-full object-cover object-center border-8 border-base"
                 />
               )}
               <h5 className="my-4 text-lg font-bold">
